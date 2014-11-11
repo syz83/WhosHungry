@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.stevenzhang.whoshungry" >
+    package="com.whoshungry.stevenzhang.whoshungry" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,15 +9,37 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name=".WhosHungry" >
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
         <activity
-            android:name=".MyActivity"
+            android:name=".Splash"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CreateLobby"
+            android:label="@string/title_activity_create_lobby" >
+        </activity>
+        <activity
+            android:name=".LobbySummary"
+            android:label="@string/title_activity_lobby_summary" >
+        </activity>
+        <activity
+            android:name=".Main"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="com.facebook.LoginActivity" >
         </activity>
     </application>
 
