@@ -39,6 +39,8 @@ public class Login extends Activity {
             }
         });
 
+        ParseUser.logOut();
+
         // Check if there is a currently logged in user
         // and it's linked to a Facebook account.
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -66,7 +68,7 @@ public class Login extends Activity {
         Login.this.progressDialog =
                 ProgressDialog.show(Login.this, "", "Logging in...", true);
 
-        List<String> permissions = Arrays.asList("public_profile", "email");
+        List<String> permissions = Arrays.asList("public_profile", "email", "user_friends");
         // NOTE: for extended permissions, like "user_about_me", your app must be reviewed by the Facebook team
         // (https://developers.facebook.com/docs/facebook-login/permissions/)
 

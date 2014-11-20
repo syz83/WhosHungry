@@ -1,19 +1,22 @@
 package com.whoshungry.stevenzhang.whoshungry;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 
-public class CreateLobby extends Activity {
+public class CreateLobby extends FragmentActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_lobby);
+
+
     }
 
 
@@ -37,7 +40,9 @@ public class CreateLobby extends Activity {
     }
 
     public void inviteFriends(View view){
-        Intent intent = new Intent(this, LobbySummary.class);
+        Intent intent = new Intent(this, FriendPicker.class);
         startActivity(intent);
     }
+
+
 }

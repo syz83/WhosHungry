@@ -2,12 +2,16 @@ package com.whoshungry.stevenzhang.whoshungry;
 
 import android.app.Application;
 
+import com.facebook.model.GraphUser;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
+
+import java.util.List;
 
 public class WhosHungry extends Application {
 
     static final String TAG = "MyApp";
+    private List<GraphUser> selectedUsers;
 
     @Override
     public void onCreate() {
@@ -17,6 +21,13 @@ public class WhosHungry extends Application {
 
         // Set your Facebook App Id in strings.xml
         ParseFacebookUtils.initialize(getString(R.string.facebook_app_id));
+    }
 
+    public List<GraphUser> getSelectedUsers() {
+        return selectedUsers;
+    }
+
+    public void setSelectedUsers(List<GraphUser> selectedUsers) {
+        this.selectedUsers = selectedUsers;
     }
 }
