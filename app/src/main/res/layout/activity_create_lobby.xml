@@ -55,7 +55,7 @@
         android:id="@+id/ph1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" "
+        android:text="I'm a crappy placeholder "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:text="What am I?"
+        android:text="I'm a crappy placeholder too!"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button

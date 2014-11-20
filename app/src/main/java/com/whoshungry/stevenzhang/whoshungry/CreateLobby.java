@@ -207,8 +207,17 @@ public class CreateLobby extends FragmentActivity {
         // automatically handle clicks on the Main/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if (id == R.id.action_log_out) {
+            // this needs to log you out and bring you back to the sign in screen
+
+            //           Intent intent = new Intent(this, CreateLobby.class);
+            //           startActivity(intent);
+        }
         if (id == R.id.action_settings) {
-            return true;
+            //we need a settings page
+
+            //          Intent intent = new Intent(this, Settings.class);
+            //         startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
