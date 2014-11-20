@@ -39,7 +39,7 @@ public class Login extends Activity {
             }
         });
 
-        ParseUser.logOut();
+        //ParseUser.logOut();
 
         // Check if there is a currently logged in user
         // and it's linked to a Facebook account.

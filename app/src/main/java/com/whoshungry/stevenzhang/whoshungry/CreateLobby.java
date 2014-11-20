@@ -1,12 +1,12 @@
 package com.whoshungry.stevenzhang.whoshungry;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,6 +76,7 @@ public class CreateLobby extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 //TODO
+                inviteFriends(view);
 
             }
         });
@@ -213,6 +214,7 @@ public class CreateLobby extends FragmentActivity {
     }
 
     public void inviteFriends(View view){
+        Log.d("Friend", "Get here?");
         Intent intent = new Intent(this, FriendPicker.class);
         startActivity(intent);
     }

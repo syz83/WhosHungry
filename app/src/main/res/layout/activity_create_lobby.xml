@@ -98,14 +98,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:text=" "
+        android:text="What am I?"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/button_invite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Invite Friends"
-        android:onClick="inviteFriends"/>
+        android:text="Invite Friends"/>
 
 </LinearLayout>
