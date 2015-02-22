@@ -2,10 +2,10 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="/Users/stevenzhang/Development/WhosHungry/facebook/src/main/assets" />
+        <source path="/Users/davidemelianov/Documents/WhosHungry/WhosHungry/facebook/src/main/assets" />
     </dataSet>
     <dataSet config="release" >
-        <source path="/Users/stevenzhang/Development/WhosHungry/facebook/src/release/assets" />
+        <source path="/Users/davidemelianov/Documents/WhosHungry/WhosHungry/facebook/src/release/assets" />
     </dataSet>
 
 </merger>

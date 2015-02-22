@@ -19,17 +19,26 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".CreateLobby"
-            android:label="@string/title_activity_create_lobby" >
+            android:label="@string/title_activity_create_lobby"
+            android:parentActivityName="com.whoshungry.stevenzhang.whoshungry.Main" >
+            <!-- The meta-data element is needed for versions lower than 4.1 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.whoshungry.stevenzhang.whoshungry.Main" />
         </activity>
         <activity
             android:name=".LobbySummary"
             android:label="@string/title_activity_lobby_summary" >
+            android:parentActivityName="com.whoshungry.stevenzhang.whoshungry.Main" >
+            <!-- The meta-data element is needed for versions lower than 4.1 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.whoshungry.stevenzhang.whoshungry.Main" />
         </activity>
         <activity
             android:name=".Main"
