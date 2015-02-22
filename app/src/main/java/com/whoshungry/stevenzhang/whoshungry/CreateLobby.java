@@ -38,6 +38,8 @@ public class CreateLobby extends FragmentActivity {
 
     static final int TIME_DIALOG_ID = 999;
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,9 @@ public class CreateLobby extends FragmentActivity {
 
         addListenerOnButton();
 
+
     }
+
 
     public void addListenerOnButton() {
 
@@ -66,7 +70,7 @@ public class CreateLobby extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 //TODO
-
+                pickPlace(view);
             }
         });
 
@@ -214,8 +218,14 @@ public class CreateLobby extends FragmentActivity {
     }
 
     public void inviteFriends(View view){
-        Log.d("Friend", "Get here?");
+        Log.d("Friend", "Pressed invite friends");
         Intent intent = new Intent(this, FriendPicker.class);
+        startActivity(intent);
+    }
+
+    public void pickPlace(View view){
+        Log.d("Place", "Pressed pick place");
+        Intent intent = new Intent(this, PickPlace.class);
         startActivity(intent);
     }
 

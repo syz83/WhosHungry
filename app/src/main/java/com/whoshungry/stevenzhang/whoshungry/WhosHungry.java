@@ -12,6 +12,7 @@ public class WhosHungry extends Application {
 
     static final String TAG = "MyApp";
     private List<GraphUser> selectedUsers;
+    static final String GOOGLE_KEY = "AIzaSyBw4xKLv4O5TFX3O3UI7lkvTKb-oFyHREk";
 
     @Override
     public void onCreate() {
