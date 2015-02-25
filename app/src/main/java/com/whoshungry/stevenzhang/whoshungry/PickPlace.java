@@ -22,7 +22,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
@@ -36,10 +38,12 @@ public class PickPlace extends Activity implements LocationListener{
     PlaceListAdapter listAdapter;
     ListView listView;
     LocationManager locationManager;
+    Location mLocation;
     private String provider;
     double lat, lng;
 
-    List<Restaurant> items;
+    List<Restaurant> restList;
+    Set<Restaurant> filter;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -47,19 +51,31 @@ public class PickPlace extends Activity implements LocationListener{
         setContentView(R.layout.pick_places);
 
         //Get LocationManager
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         // Define the criteria how to select the location provider -> use
         // default
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
         Log.d("Provider", "Provider " + String.valueOf(provider));
+        Log.d("Provider", LocationManager.GPS_PROVIDER);
 
-            Log.d("LocationGPS", "Initializing location");
-            locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER,
+        boolean isGPSEnabled = locationManager
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        Log.d("Boolean", String.valueOf(isGPSEnabled));
+
+        Log.d("LocationGPS", "Initializing location");
+        locationManager.requestLocationUpdates(provider,
                     5000,   // 1 sec
                     0, this);
 
+        mLocation = locationManager
+                .getLastKnownLocation(provider);
 
+        if(mLocation!=null) {
+            lat = mLocation.getLatitude();
+            lng = mLocation.getLongitude();
+        }
 
         Gson gson = new GsonBuilder()
                 .create();
@@ -73,24 +89,27 @@ public class PickPlace extends Activity implements LocationListener{
 
         new LoadRestaurantsTask(this).execute();
 
-        items = new ArrayList<Restaurant>();
+        restList = new ArrayList<Restaurant>();
+        filter = new HashSet<Restaurant>();
 
         listView = (ListView) findViewById(R.id.restaurant_list_view);
         googlePlacesService = restAdapter.create(GooglePlacesService.class);
         Log.d("Adapter", "Going to create new PlaceListAdapter");
-        listAdapter = new PlaceListAdapter(this, items);
+        listAdapter = new PlaceListAdapter(this, restList);
         Log.d("Adapter", "Setting adapter");
         listView.setAdapter(listAdapter);
         Log.d("Adapter", "Adapter set");
-        Log.d("Adapter", items.toString());
+        Log.d("Adapter", restList.toString());
 
     }
 
     private class LoadRestaurantsTask extends AsyncTask<Void, Void, List<Restaurant>> {
         private ProgressDialog dialog;
+        private List<Restaurant> items;
 
         public LoadRestaurantsTask(PickPlace activity) {
             dialog = new ProgressDialog(activity);
+            items = new ArrayList<Restaurant>();
         }
 
         @Override
@@ -98,20 +117,23 @@ public class PickPlace extends Activity implements LocationListener{
             super.onPreExecute();
             dialog.setMessage("Doing something, please wait.");
             dialog.show();
-            items.clear();
         }
 
         @Override
         protected List<Restaurant> doInBackground(Void... params) {
             String lat_string = String.valueOf(lat);
             String lng_string = String.valueOf(lng);
-//            Log.d("LocationGPS", lat_string);
-//            Log.d("LocationGPS", lng_string);
-//            Log.d("Before", "Hello");
+            Log.d("LocationGPS", lat_string);
+            Log.d("LocationGPS", lng_string);
+            Log.d("Before", "Hello");
             RestaurantList restaurantList = googlePlacesService.restaurants(lat_string + "," + lng_string, "5000", WhosHungry.GOOGLE_KEY, "food");
-
+            Log.d("After", String.valueOf(restaurantList.restaurantList.size()));
             for (Restaurant restaurant : restaurantList.restaurantList){
-                items.add(restaurant);
+                if(!filter.contains(restaurant)) {
+                    Log.d("Why", "WHYYYYY");
+                    filter.add(restaurant);
+                    items.add(restaurant);
+                }
             }
             return items;
         }
@@ -119,11 +141,13 @@ public class PickPlace extends Activity implements LocationListener{
         @Override
         protected void onPostExecute(List<Restaurant> result) {
             Log.d("PostExecute", "Yes we got here");
+
+            restList = result;
+
             listAdapter.notifyDataSetChanged();
             if(dialog.isShowing()) {
                 dialog.dismiss();
             }
-
 
         }
 
