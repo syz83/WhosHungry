@@ -13,6 +13,8 @@ public class Splash extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        //ActionBar actionBar = getActionBar();
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
