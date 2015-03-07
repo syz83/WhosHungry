@@ -1,7 +1,9 @@
 package com.whoshungry.stevenzhang.whoshungry;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 
 public class Splash extends Activity {
@@ -15,7 +17,7 @@ public class Splash extends Activity {
         setContentView(R.layout.activity_splash);
 
 
-        /*Handler handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
             @Override
@@ -24,7 +26,7 @@ public class Splash extends Activity {
                 startActivity(intent);
                 finish();
             }
-        }, 1000);*/
+        }, 4000);
 
     }
 
