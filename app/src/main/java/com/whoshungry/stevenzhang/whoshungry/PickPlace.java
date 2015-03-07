@@ -3,10 +3,8 @@ package com.whoshungry.stevenzhang.whoshungry;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,9 +35,6 @@ public class PickPlace extends Activity implements LocationListener{
 
     PlaceListAdapter listAdapter;
     ListView listView;
-    LocationManager locationManager;
-    Location mLocation;
-    private String provider;
     double lat, lng;
 
     List<Restaurant> restList;
@@ -50,32 +45,38 @@ public class PickPlace extends Activity implements LocationListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pick_places);
 
-        //Get LocationManager
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        // Define the criteria how to select the location provider -> use
-        // default
-        Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
-        Log.d("Provider", "Provider " + String.valueOf(provider));
-        Log.d("Provider", LocationManager.GPS_PROVIDER);
+//        //Get LocationManager
+//        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+//        // Define the criteria how to select the location provider -> use
+//        // default
+//        Criteria criteria = new Criteria();
+//        provider = locationManager.getBestProvider(criteria, false);
+//        Log.d("Provider", "Provider " + String.valueOf(provider));
+//        Log.d("Provider", LocationManager.GPS_PROVIDER);
+//
+//        boolean isGPSEnabled = locationManager
+//                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+//
+//        Log.d("Boolean", String.valueOf(isGPSEnabled));
+//
+//        Log.d("LocationGPS", "Initializing location");
+//        locationManager.requestLocationUpdates(provider,
+//                    5000,   // 1 sec
+//                    0, this);
+//
+//        mLocation = locationManager
+//                .getLastKnownLocation(provider);
+//
+//        if(mLocation!=null) {
+//            lat = mLocation.getLatitude();
+//            lng = mLocation.getLongitude();
+//        }
 
-        boolean isGPSEnabled = locationManager
-                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+        GPSService gpsService = new GPSService(this);
+        gpsService.getLocation();
 
-        Log.d("Boolean", String.valueOf(isGPSEnabled));
-
-        Log.d("LocationGPS", "Initializing location");
-        locationManager.requestLocationUpdates(provider,
-                    5000,   // 1 sec
-                    0, this);
-
-        mLocation = locationManager
-                .getLastKnownLocation(provider);
-
-        if(mLocation!=null) {
-            lat = mLocation.getLatitude();
-            lng = mLocation.getLongitude();
-        }
+        lat = gpsService.getLatitude();
+        lng = gpsService.getLongitude();
 
         Gson gson = new GsonBuilder()
                 .create();
@@ -142,8 +143,8 @@ public class PickPlace extends Activity implements LocationListener{
         protected void onPostExecute(List<Restaurant> result) {
             Log.d("PostExecute", "Yes we got here");
 
-            restList = result;
-
+            restList.addAll(result);
+            Log.d("onPostExecute", restList.toString());
             listAdapter.notifyDataSetChanged();
             if(dialog.isShowing()) {
                 dialog.dismiss();
