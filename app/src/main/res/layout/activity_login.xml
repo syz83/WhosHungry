@@ -12,8 +12,6 @@
         android:text="@string/login_intro"
         android:textSize="18sp" />
 
-
-
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
@@ -23,7 +21,6 @@
         android:text="@string/login"
         android:textColor="#fff"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/button_login"
-        />
+        android:background="@drawable/button_login" />
 
 </LinearLayout>
