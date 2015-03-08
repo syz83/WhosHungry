@@ -6,15 +6,34 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class Main extends Activity {
+
+    ListView openLobbiesListView;
+    OpenLobbiesAdapter adapter;
+    ArrayList<String> arrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("Main", "Main activity created");
+
+        openLobbiesListView = (ListView) findViewById(R.id.openLobbies);
+
+        arrayList = new ArrayList<String>();
+        for (int i = 0; i < 4; i++) {
+            arrayList.add("a");
+        }
+
+        adapter = new OpenLobbiesAdapter(this, R.layout.restaurant_view, arrayList);
+
+        openLobbiesListView.setAdapter(adapter);
     }
 
 

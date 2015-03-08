@@ -8,7 +8,7 @@
         android:layout_height="60dp"
         android:id="@+id/gray_bar"
         android:orientation="horizontal"
-        android:background="#bfececec"
+        android:background="#e7ececec"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -27,7 +27,7 @@
             android:orientation="vertical"
             android:id="@+id/about"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp">
+            android:layout_marginLeft="20dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,7 +35,6 @@
                 android:fontFamily="sans-serif"
                 android:text="Lunch in 20 min"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 android:textColor="#58585A"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -46,6 +45,19 @@
                 android:textSize="14sp"
                 android:textColor="#58585A"/>
          </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="-3dp"
+            android:layout_marginRight="15dp">
+            <com.whoshungry.stevenzhang.whoshungry.InviteNumFriendsView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/inviteNumFriendsView"
+                android:layout_alignParentRight="true"/>
+            </RelativeLayout>
 
     </LinearLayout>
 

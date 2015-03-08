@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="50dp" android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="-7dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="-10dp"
         android:id="@+id/num_friends_image"
         android:src="@drawable/num_friends"
         android:layout_below="@+id/num_friends"
+        android:scaleType="fitXY"
         />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:id="@+id/num_friends"
         android:background="@drawable/circle_shape"
         android:textColor="#ffffff"
-        android:textSize="8sp"
-        android:text="99"
+        android:textSize="10sp"
+        android:text="9"
         android:gravity="center_vertical|center_horizontal"
         android:layout_toRightOf="@id/num_friends_image"
-        android:layout_marginLeft="-5dp"
+        android:layout_marginLeft="-7dp"
         />
 
 </RelativeLayout>
