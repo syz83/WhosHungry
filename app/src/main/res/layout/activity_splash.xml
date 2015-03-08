@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F36F46"
     tools:context="com.whoshungry.stevenzhang.whoshungry.Splash">
 
     <TextView
@@ -9,8 +10,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/splash_title"
         android:layout_marginTop="55dp"
-        android:textSize="40sp"
         android:fontFamily="sans-serif-light"
+        android:textSize="50sp"
+        android:textColor="#ffffff"
         android:text="@string/title_activity_splash"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -27,5 +29,31 @@
         android:cropToPadding="false"
         android:scaleType="fitXY"
         />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textSize="35sp"
+        android:fontFamily="sans-serif-light"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="#79CAB2"
+        android:textColor="#58585A" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textSize="35sp"
+        android:fontFamily="sans-serif-light"
+        android:layout_above="@id/signup"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="#ffffff"
+        android:textColor="#58585A"/>
 
 </RelativeLayout>
