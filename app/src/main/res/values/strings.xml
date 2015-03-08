@@ -27,4 +27,9 @@
 
     <string name="exception">Exception: %1$s</string>
 
+    <string name="action_submit_myPicks">Submit</string>
+
+    <color name="pressed_color">#4d90fe</color>
+    <color name="default_color">#ffffff</color>
+
 </resources>

@@ -3,14 +3,19 @@ package com.whoshungry.stevenzhang.whoshungry;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,37 +45,15 @@ public class PickPlace extends Activity implements LocationListener{
     List<Restaurant> restList;
     Set<Restaurant> filter;
 
+    List<Restaurant> myPicks;
+    int[] myPickPositions;
+    int count;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pick_places);
-
-//        //Get LocationManager
-//        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-//        // Define the criteria how to select the location provider -> use
-//        // default
-//        Criteria criteria = new Criteria();
-//        provider = locationManager.getBestProvider(criteria, false);
-//        Log.d("Provider", "Provider " + String.valueOf(provider));
-//        Log.d("Provider", LocationManager.GPS_PROVIDER);
-//
-//        boolean isGPSEnabled = locationManager
-//                .isProviderEnabled(LocationManager.GPS_PROVIDER);
-//
-//        Log.d("Boolean", String.valueOf(isGPSEnabled));
-//
-//        Log.d("LocationGPS", "Initializing location");
-//        locationManager.requestLocationUpdates(provider,
-//                    5000,   // 1 sec
-//                    0, this);
-//
-//        mLocation = locationManager
-//                .getLastKnownLocation(provider);
-//
-//        if(mLocation!=null) {
-//            lat = mLocation.getLatitude();
-//            lng = mLocation.getLongitude();
-//        }
+        //getActionBar().setTitle("");
 
         GPSService gpsService = new GPSService(this);
         gpsService.getLocation();
@@ -92,16 +75,68 @@ public class PickPlace extends Activity implements LocationListener{
 
         restList = new ArrayList<Restaurant>();
         filter = new HashSet<Restaurant>();
+        myPicks = new ArrayList<Restaurant>();
+        myPickPositions = new int[3];
+        count = 0;
 
         listView = (ListView) findViewById(R.id.restaurant_list_view);
         googlePlacesService = restAdapter.create(GooglePlacesService.class);
         Log.d("Adapter", "Going to create new PlaceListAdapter");
         listAdapter = new PlaceListAdapter(this, restList);
-        Log.d("Adapter", "Setting adapter");
         listView.setAdapter(listAdapter);
-        Log.d("Adapter", "Adapter set");
-        Log.d("Adapter", restList.toString());
+        //listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //here you can use the position to determine what checkbox to check
+                //this assumes that you have an array of your checkboxes as well. called checkbox
+                if(myPicks.size()<3) {
+                    view.setBackgroundColor(Color.parseColor("#F36F46"));
+                    myPickPositions[count] = position;
+                    count++;
+                    //((ListView)parent).setItemChecked(position, true);
+
+                    myPicks.add(restList.get(position));
+                    Toast.makeText(getApplicationContext(), restList.get(position).name, Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "You have already chosen 3 restaurants", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.pick_places_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Main/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_submit_myPicks) {
+            Intent intent = new Intent(this, Main.class);
+            startActivity(intent);
+        }
+        if (id == R.id.action_log_out) {
+            // this needs to log you out and bring you back to the sign in screen
+
+            //           Intent intent = new Intent(this, CreateLobby.class);
+            //           startActivity(intent);
+        }
+        if (id == R.id.action_settings) {
+            //we need a settings page
+
+            //          Intent intent = new Intent(this, Settings.class);
+            //         startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class LoadRestaurantsTask extends AsyncTask<Void, Void, List<Restaurant>> {
@@ -110,7 +145,7 @@ public class PickPlace extends Activity implements LocationListener{
 
         public LoadRestaurantsTask(PickPlace activity) {
             dialog = new ProgressDialog(activity);
-            items = new ArrayList<Restaurant>();
+            items = new ArrayList<>();
         }
 
         @Override
@@ -131,7 +166,6 @@ public class PickPlace extends Activity implements LocationListener{
             Log.d("After", String.valueOf(restaurantList.restaurantList.size()));
             for (Restaurant restaurant : restaurantList.restaurantList){
                 if(!filter.contains(restaurant)) {
-                    Log.d("Why", "WHYYYYY");
                     filter.add(restaurant);
                     items.add(restaurant);
                 }
@@ -184,7 +218,8 @@ public class PickPlace extends Activity implements LocationListener{
             return position;
         }
 
-        @Override public View getView(int position, View convertView, ViewGroup parent) {
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
             Log.d("getView", String.valueOf(position));
 //            LinearLayout view = convertView != null
 //                    ? (LinearLayout) convertView
@@ -193,10 +228,17 @@ public class PickPlace extends Activity implements LocationListener{
             if (convertView == null) {
                 LayoutInflater inflater = getLayoutInflater();
                 v = inflater.inflate(R.layout.restaurant_item, parent, false);
+                v.setBackgroundColor(Color.WHITE);
             }
 
             TextView text = (TextView) v.findViewById(R.id.restaurant_text);
             text.setText(restaurantsList.get(position).name);
+
+            v.setBackgroundColor(Color.WHITE);
+
+            for(int i = 0; i<myPickPositions.length; i++)
+                if(myPickPositions[i]==position)
+                    v.setBackgroundColor(Color.parseColor("#F36F46"));
 
             return v;
         }
