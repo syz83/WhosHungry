@@ -77,6 +77,8 @@ public class PickPlace extends Activity implements LocationListener{
         filter = new HashSet<Restaurant>();
         myPicks = new ArrayList<Restaurant>();
         myPickPositions = new int[3];
+        for(int i = 0; i<3; i++)
+            myPickPositions[i] = -1;
         count = 0;
 
         listView = (ListView) findViewById(R.id.restaurant_list_view);
@@ -121,6 +123,7 @@ public class PickPlace extends Activity implements LocationListener{
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_submit_myPicks) {
+            Log.d("My Restaurants", myPicks.toString());
             Intent intent = new Intent(this, Main.class);
             startActivity(intent);
         }
