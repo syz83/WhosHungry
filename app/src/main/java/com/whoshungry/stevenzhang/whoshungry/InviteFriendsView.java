@@ -29,26 +29,48 @@ public class InviteFriendsView extends LinearLayout {
         checkBox = (CheckBox) findViewById(R.id.checkbox);
     }
 
+    /**
+     * Set the TextView value for your Friends name
+     * @param friendName
+     */
     public void setFriendName(String friendName) {
         this.friendName.setText(friendName);
     }
 
+    /**
+     * Get the TextView value for your Friends name
+     * @return
+     */
     public String getFriendName() {
         return friendName.getText().toString();
     }
 
+    /**
+     * Provide a booolean - true/false. The checkbox value will be set to that
+     * @param value
+     */
     public void setCheckBoxValue(boolean value) {
         this.checkBox.setChecked(value);
     }
 
+    /**
+     * Set the checkbox value to CHECKED
+     */
     public void setChecked() {
         this.checkBox.setChecked(true);
     }
 
+    /**
+     * Set the checkbox value to UNCHECKED
+     */
     public void setUnchecked() {
         this.checkBox.setChecked(false);
     }
 
+    /**
+     * Get the checkbox value
+     * @return
+     */
     public boolean getCheckedValue() {
         return checkBox.isChecked();
     }
