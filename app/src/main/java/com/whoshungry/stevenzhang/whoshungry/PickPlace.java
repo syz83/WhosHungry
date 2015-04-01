@@ -46,8 +46,6 @@ public class PickPlace extends Activity implements LocationListener{
     Set<Restaurant> filter;
 
     List<Restaurant> myPicks;
-    int[] myPickPositions;
-    int count;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -76,10 +74,6 @@ public class PickPlace extends Activity implements LocationListener{
         restList = new ArrayList<Restaurant>();
         filter = new HashSet<Restaurant>();
         myPicks = new ArrayList<Restaurant>();
-        myPickPositions = new int[3];
-        for(int i = 0; i<3; i++)
-            myPickPositions[i] = -1;
-        count = 0;
 
         listView = (ListView) findViewById(R.id.restaurant_list_view);
         googlePlacesService = restAdapter.create(GooglePlacesService.class);
@@ -93,14 +87,17 @@ public class PickPlace extends Activity implements LocationListener{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //here you can use the position to determine what checkbox to check
                 //this assumes that you have an array of your checkboxes as well. called checkbox
-                if(myPicks.size()<3) {
+                if(myPicks.size()<3 && !myPicks.contains(restList.get(position))) {
                     view.setBackgroundColor(Color.parseColor("#F36F46"));
-                    myPickPositions[count] = position;
-                    count++;
                     //((ListView)parent).setItemChecked(position, true);
 
                     myPicks.add(restList.get(position));
                     Toast.makeText(getApplicationContext(), restList.get(position).name, Toast.LENGTH_SHORT).show();
+                }
+                else if(myPicks.contains(restList.get(position))){
+                    view.setBackgroundColor(Color.WHITE);
+                    myPicks.remove(restList.get(position));
+                    Toast.makeText(getApplicationContext(), restList.get(position).name + " Removed", Toast.LENGTH_SHORT).show();
                 }
                 else
                     Toast.makeText(getApplicationContext(), "You have already chosen 3 restaurants", Toast.LENGTH_SHORT).show();
@@ -124,7 +121,10 @@ public class PickPlace extends Activity implements LocationListener{
         int id = item.getItemId();
         if (id == R.id.action_submit_myPicks) {
             Log.d("My Restaurants", myPicks.toString());
-            Intent intent = new Intent(this, Main.class);
+            Log.d("My Restaurants", myPicks.get(0).name);
+            WhosHungry application = (WhosHungry) getApplication();
+            application.setPickedRestaurants(myPicks);
+            Intent intent = new Intent(this, CreateLobby.class);
             startActivity(intent);
         }
         if (id == R.id.action_log_out) {
@@ -191,6 +191,25 @@ public class PickPlace extends Activity implements LocationListener{
 
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        try {
+            WhosHungry application = (WhosHungry) getApplication();
+            List<Restaurant> pickedRestaurants = application.getPickedRestaurants();
+            if (pickedRestaurants != null && !pickedRestaurants.isEmpty()) {
+                myPicks = pickedRestaurants;
+            }
+        } catch (Exception ex) {
+            onError(ex);
+        }
+    }
+
+    private void onError(Exception error) {
+        String text = getString(R.string.exception, error.getMessage());
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
     public class PlaceListAdapter extends BaseAdapter {
         Context context;
@@ -239,8 +258,8 @@ public class PickPlace extends Activity implements LocationListener{
 
             v.setBackgroundColor(Color.WHITE);
 
-            for(int i = 0; i<myPickPositions.length; i++)
-                if(myPickPositions[i]==position)
+            for(int i = 0; i<myPicks.size(); i++)
+                if(myPicks.get(i).name.equals(restaurantsList.get(position).name))
                     v.setBackgroundColor(Color.parseColor("#F36F46"));
 
             return v;

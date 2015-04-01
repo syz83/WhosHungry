@@ -61,6 +61,8 @@
         <activity
             android:name=".PickPlace">
         </activity>
+        <activity android:name=".PickMeetup"></activity>
+        <activity android:name=".PickFriends"></activity>
     </application>
 
 </manifest>
