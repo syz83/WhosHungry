@@ -23,7 +23,7 @@ public class InviteFriendsView extends LinearLayout {
         super(context, attrs);
 
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(R.layout.invite_friends_view, this, true);
+        layoutInflater.inflate(R.layout.invite_friends_view_item, this, true);
 
         friendName = (TextView) findViewById(R.id.friendName);
         checkBox = (CheckBox) findViewById(R.id.checkbox);
