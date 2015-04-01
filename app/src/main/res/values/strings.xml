@@ -29,6 +29,15 @@
 
     <string name="action_submit_myPicks">Submit</string>
 
+    <string name="what_kind_of_meetup">What kind of meetup?</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="drinks">Drinks</string>
+    <string name="coffee">Coffee</string>
+
+    <string name="start_new_meetup">Start new meetup</string>
+
     <color name="pressed_color">#4d90fe</color>
     <color name="default_color">#ffffff</color>
 
