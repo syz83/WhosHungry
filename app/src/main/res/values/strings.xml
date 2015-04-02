@@ -54,6 +54,13 @@
     <string name="my_current_location">My current location</string>
     <string name="search">Search</string>
 
+    <string name="chipotle">Chipotle Mexican Grill</string>
+    <string name="reviews">177 Reviews |</string>
+    <string name="distance">1.1mi |</string>
+    <string name="distanectwo">2mi</string>
+    <string name="dollars">$</string>
+    <string name="restaurantType">Mexican, Fast Food</string>
+
     <color name="pressed_color">#4d90fe</color>
     <color name="default_color">#ffffff</color>
 
