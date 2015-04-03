@@ -3,14 +3,14 @@ package com.whoshungry.stevenzhang.whoshungry;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
  * Created by saiavala on 4/3/15.
  */
-public class ItsDecidedView extends LinearLayout {
+public class RestaurantVoterView extends RelativeLayout {
 
     TextView restaurantName;
     TextView numReviews;
@@ -20,15 +20,16 @@ public class ItsDecidedView extends LinearLayout {
 
     RatingBar ratingBar;
 
-    public ItsDecidedView(Context context) {
+
+    public RestaurantVoterView(Context context) {
         this(context, null);
     }
 
-    public ItsDecidedView(Context context, AttributeSet attrs) {
+    public RestaurantVoterView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.its_decided_view, this, true);
+        inflater.inflate(R.layout.restaurant_voter_view, this, true);
 
         restaurantName = (TextView) findViewById(R.id.restaurantName);
         numReviews = (TextView) findViewById(R.id.numReviews);
@@ -37,6 +38,7 @@ public class ItsDecidedView extends LinearLayout {
         restaurantType = (TextView) findViewById(R.id.restaurantType);
 
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+
     }
 
     public void setRestaurantName(String name) {
