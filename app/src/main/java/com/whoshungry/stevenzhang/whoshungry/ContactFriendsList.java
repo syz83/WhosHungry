@@ -88,15 +88,22 @@ public class ContactFriendsList extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            View v = convertView;
 
-            InviteFriendsView inviteFriendsView = new InviteFriendsView(context);
-            //inviteFriendsView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            inviteFriendsView.setLayoutParams(new AbsListView.LayoutParams(
-                    AbsListView.LayoutParams.MATCH_PARENT,
-                    AbsListView.LayoutParams.WRAP_CONTENT));
+            if (convertView == null) {
+                InviteFriendsView inviteFriendsView = new InviteFriendsView(context);
+                //inviteFriendsView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                inviteFriendsView.setLayoutParams(new AbsListView.LayoutParams(
+                        AbsListView.LayoutParams.MATCH_PARENT,
+                        AbsListView.LayoutParams.WRAP_CONTENT));
 
-            inviteFriendsView.setFriendName(contactsContractList.get(position));
-            return inviteFriendsView;
+                inviteFriendsView.setFriendName(contactsContractList.get(position));
+
+                convertView = inviteFriendsView;
+                v = convertView;
+            }
+
+            return v;
 
 
 //        for(int i = 0; i<myPicks.size(); i++)
