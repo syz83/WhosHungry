@@ -3,7 +3,9 @@ package com.whoshungry.stevenzhang.whoshungry;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,8 +32,17 @@ public class ContactFriendsList extends Activity {
         setContentView(R.layout.contact_friend_list);
 
         contactsList = new ArrayList<>();
-        contactsList.add("Steven Zhang");
+
+        Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+
+        while(cursor.moveToNext()){
+            String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            String  number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            contactsList.add(name + " " + number);
+        }
+
         contactListAdapter = new ContactListAdapter(this, contactsList);
+
         listView = (ListView) findViewById(R.id.contacts_list_view);
         listView.setAdapter(contactListAdapter);
 
