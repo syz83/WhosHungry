@@ -63,6 +63,7 @@
         </activity>
         <activity android:name=".PickMeetup"></activity>
         <activity android:name=".PickFriends"></activity>
+        <activity android:name=".ContactFriendsList"></activity>
     </application>
 
 </manifest>

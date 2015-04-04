@@ -258,6 +258,14 @@ public class PickPlace extends Activity implements LocationListener{
 
             v.setBackgroundColor(Color.WHITE);
 
+
+           /* InviteFriendsView inviteFriendsView = new InviteFriendsView(this);
+            inviteFriendsView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            inviteFriendsView.setFriendName(restaurantsList.get(position).name);
+            return inviteFriendsView;  */
+
+
             for(int i = 0; i<myPicks.size(); i++)
                 if(myPicks.get(i).name.equals(restaurantsList.get(position).name))
                     v.setBackgroundColor(Color.parseColor("#F36F46"));
