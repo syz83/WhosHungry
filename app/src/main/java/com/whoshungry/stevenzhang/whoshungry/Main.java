@@ -1,7 +1,8 @@
 package com.whoshungry.stevenzhang.whoshungry;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -51,8 +52,11 @@ public class Main extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_create_lobby) {
-            Intent intent = new Intent(this, CreateLobby.class);
-            startActivity(intent);
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            PickMeetup pickMeetup = new PickMeetup();
+            ft.add(R.id.main, pickMeetup);
+            ft.commit();
         }
         if (id == R.id.action_log_out) {
             // this needs to log you out and bring you back to the sign in screen

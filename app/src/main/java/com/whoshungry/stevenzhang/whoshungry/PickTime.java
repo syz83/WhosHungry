@@ -6,30 +6,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Button;
 
 /**
- * Created by stevenzhang on 3/31/15.
+ * Created by stevenzhang on 4/6/15.
  */
-public class PickMeetup extends Fragment {
-
+public class PickTime extends Fragment{
     private View myFragView;
-    private LinearLayout mBreakfast;
+    private Button done_btn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myFragView = inflater.inflate(R.layout.what_kind_of_meetup, container, false);
-        mBreakfast = (LinearLayout) myFragView.findViewById(R.id.breakfast);
+        myFragView = inflater.inflate(R.layout.when_are_you_thinking, container, false);
+        done_btn = (Button) myFragView.findViewById(R.id.done_btn);
         setButtonListeners();
         return myFragView;
     }
 
     public void setButtonListeners() {
-        mBreakfast.setOnClickListener(new View.OnClickListener() {
+        done_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.setBackgroundColor(Color.parseColor("#55F36F46"));
-                PickTime nextFrag= new PickTime();
+                PickCuisine nextFrag= new PickCuisine();
                 getFragmentManager().beginTransaction()
                         .replace(R.id.main, nextFrag)
                         .addToBackStack(null)

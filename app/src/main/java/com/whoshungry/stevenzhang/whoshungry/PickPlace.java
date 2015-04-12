@@ -124,7 +124,7 @@ public class PickPlace extends Activity implements LocationListener{
             Log.d("My Restaurants", myPicks.get(0).name);
             WhosHungry application = (WhosHungry) getApplication();
             application.setPickedRestaurants(myPicks);
-            Intent intent = new Intent(this, CreateLobby.class);
+            Intent intent = new Intent(this, FriendPicker.class);
             startActivity(intent);
         }
         if (id == R.id.action_log_out) {
